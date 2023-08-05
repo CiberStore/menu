@@ -1,7 +1,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<style type="text/css">
+<style type="text/css"> 
+
+body {
+
+/* Ubicación de la imagen */
+
+background-image: url(imagen/bg.gif);
+
+/* Para dejar la imagen de fondo centrada, vertical y
+
+horizontalmente */
+
+background-position: center center;
+
+/* Para que la imagen de fondo no se repita */
+
+background-repeat: no-repeat;
+
+/* La imagen se fija en la ventana de visualización para que la altura de la imagen no supere a la del contenido */
+
+background-attachment: fixed;
+
+/* La imagen de fondo se reescala automáticamente con el cambio del ancho de ventana del navegador */
+
+background-size: cover;
+
+/* Se muestra un color de fondo mientras se está cargando la imagen
+
+de fondo o si hay problemas para cargarla */
+
+background-color: #66999;
+
+}
+
+
+.bg{background: rgb(90,58,138);
+background: linear-gradient(90deg, rgba(90,58,138,1) 22%, rgba(0,212,255,1) 48%, rgba(2,0,36,1) 96%);}
 a{
   color: yellow;
 }
@@ -29,7 +65,7 @@ a:active{
   box-shadow: 1px 6px 9px #666666;
   font-family: Arial;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 12px;
   padding: 13px 18px 11px 22px;
   border: solid #548c1f 2px;
   text-decoration: none;
@@ -44,7 +80,130 @@ a:active{
   background-image: linear-gradient(to bottom, #0d75b5, #3498db);
   text-decoration: none;
 }
+ 
+ 
+ @import "compass/css3";
+
+@import "compass/css3";
+
+//Variables here:
+//(alongside with commented suggestions)
+$foreground-color:#b85b3f;//black;
+$background-color:#e8e3c7;//white
+$shadow-color:#ba9186;//$foreground-color;
+$distance:8px;
+$cut-distance:3px;//$distance/4;
+$strips-size:6px; //10px
+$strips-ratio:50%;//70%
+$strips-angle:45deg;//90deg;
+
+//cray stuff yo. be sure to try (if you please)
+$animate:false;//true
+$fixed:false;//true
+
+body{
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size:85pt;
+  background-color:$background-color;
+  text-align:center;
+  line-height:1.2em;
+  padding-top:70px;
+}
+.dashed-shadow{
+  position:relative;
+  top:$distance;
+  left:$distance;
+  display:inline-block;
+  color:$shadow-color;
+}
+@keyframes dash-animation{
+  0% {background-position:0 0};
+  100% {background-position:100% 0};
+}
+.dashed-shadow:before{
+  content:" ";
+  display:block;
+  
+  position:absolute;
+  $bleeding-horizontal:10px;
+  $bleeding-vertical:0px;
+  top:-$bleeding-vertical - $distance;
+  left:-$bleeding-vertical - $distance;
+  bottom:-$bleeding-horizontal + $distance;
+  right:-$bleeding-horizontal + $distance;
+  z-index:1;
+  $color:$background-color;
+  $size:$strips-ratio/2;
+  $halfSize:$size/2;
+  $p1:$halfSize;
+  $p2:50%-$halfSize;
+  $p3:50%+$halfSize;
+  $p4:100%-$halfSize;
+  $transparent:transparentize($color,1);
+  @include background-image(linear-gradient($strips-angle,$color $p1, $transparent $p1, $transparent $p2,$color $p2, $color $p3, $transparent $p3, $transparent $p4, $color $p4));
+  background-size:$strips-size $strips-size;
+  @if($animate){
+    animation:dash-animation 30s infinite linear; 
+  }
+  @if($fixed){
+    background-attachment:fixed;
+  }
+}
+.dashed-shadow:hover:before{
+  animation:dash-animation 30s infinite linear;
+}
+
+.dashed-shadow:after{
+  z-index:2;
+  content:attr(data-text);
+  position:absolute;
+  left:-$distance;
+  top:-$distance;
+  color:$foreground-color;
+  text-shadow:$cut-distance $cut-distance $background-color;
+}
+
+//fancy stuff - just useless fluff, don't mind from here onwards
+
+.hello{
+  font-family:'Cookie',cursive;
+  font-size:140pt;
+}
+.sorta-block{
+  font-size:50pt;
+  line-height:1.1em;
+  @include transform(skew(0,-5deg));
+  z-index:3;
+  position:relative;
+  margin-top:20px;
+  margin-bottom:10px;
+}
+.sorta{
+  border-top:4px solid $foreground-color;
+  border-bottom:4px solid $foreground-color;
    
+  text-transform:uppercase;
+  z-index:3;
+  //position:relative;
+  //display:block;
+  //width:300px;
+  font-style:italic;
+}
+.hipsterish{
+   font-family: 'Sancreek', cursive;
+    font-size:70pt;
+}
+.dashed-shadow-text{
+  font-size:140pt;
+  line-height:0.7em;
+  //left:-10px;
+}
+.shadow{
+  font-size:120pt;
+  line-height:0.8em;
+}
+
+
 
 </style>
 
@@ -53,9 +212,18 @@ a:active{
 </head>
 
 <body>
-<body background="imagen/bg.gif">
-<br><br><br>
+
+<p>
+   <marquee behavior="alternate">
+      <img src="imagen/frase.png" height="150">
+   </marquee>
+</p>
+
+<ul><br><br><br>
+<a class="btn" href="ps1.html">Play Station 1</a>  
 <a class="btn" href="ps2.html">Play Station 2</a>  
+<a class="btn" href="ps3.html">Play Station 3</a>  
+</ul>
 
 </body>
 </html>
